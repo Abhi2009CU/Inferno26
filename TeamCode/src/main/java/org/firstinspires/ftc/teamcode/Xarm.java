@@ -11,8 +11,16 @@ public class Xarm {
     public double MIN_POS;
 
     public void setSpeed(double s) {
+        double currentPos = slideMotor.getCurrentPosition();
+        if (s > 0 && currentPos => MAX_POS){
+            return;
+        }
+        if (s < 0 && currentPos <= MIN_POS){
+            return;
+        }
         motor.set(Math.max(MIN_POS, Math.min(MAX_POS, s)));
     }
 
 
 }
+
