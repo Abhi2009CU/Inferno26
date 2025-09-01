@@ -2,24 +2,35 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.controller.PIDController;
 
-
 public class Zarm {
+    //create slideMotor
     private Motor slideMotor;
-    
-    slideMotor.setRunMode(Motor.RunMode.RawPower);
-    slideMotor.resetEncoder();
-    
-    public double MAX_POS, MIN_POS;
-    private PIDController SLIDE_PID;
-    
-    PIDController pidController = new PIDController(0.2,0.1, 0.1);
+
+    //init max and min pos
+    public static final double MAX_POS = 4.0;
+    public static final double MIN_POS = 0.0;
+
+    //init PID variables
+    public static final double PID_P = 0.001;
+    public static final double PID_I = 0.0001;
+    public static final double PID_D = 0.004;
+
+    //init slideMotorPID
+    private final PIDController slideMotorPID = new PIDController(PID_P, PID_I, PID_D);
+
+    //init slideMotor
+    public Zarm(Motor slideMotor){
+        this.slideMotor = slideMotor;
+        this.slideMotor.setRunMode(Motor.RunMode.RawPower);
+        this.slideMotor.resetEncoder();
+    }
     
     public void setPos(double p){
-        slideMotor.set(Math.max(MIN_POS, Math.min(MAX_POS, p)));
+        slideMotorPID.setPoint(Math.max(MIN_POS, Math.min(MAX_POS, p)));
     }
     
     public void tickPID(){
-        slideMotor.set(pidController.calculate(slideMotor.encoder.getPosition()));
+        slideMotor.set((Math.max(-1, Math.min(1, pidController.calculate(slideMotorgetCurrentPosition())))));
     }
 
 
