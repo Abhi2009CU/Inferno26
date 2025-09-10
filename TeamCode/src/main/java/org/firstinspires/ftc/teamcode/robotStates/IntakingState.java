@@ -8,10 +8,8 @@ import com.jumpypants.murphy.tasks.Task;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.MyRobot;
-//import org.firstinspires.ftc.teamcode.subSystems.Arm;
-import org.firstinspires.ftc.teamcode.subSystems.Xarm;
 import org.firstinspires.ftc.teamcode.subSystems.Zarm;
-import org.firstinspires.ftc.teamcode.subSystems.Claw1;
+import org.firstinspires.ftc.teamcode.subSystems.Claw;
 
 public class IntakingState implements State {
     private final MyRobot robotContext;
@@ -73,12 +71,11 @@ public class IntakingState implements State {
     private static class TransferTask extends SequentialTask {
         public TransferTask(MyRobot robotContext) {
             super(robotContext,
-                    robotContext.claw1.new MoveClawTask(robotContext, Claw1.clawClosedPos),
+                    robotContext.claw.new MoveClawTask(robotContext, Claw.CLAW_CLOSED_POSITION),
                     new ParallelTask(robotContext, false,
-//                            robotContext.arm.new MoveExtensionTask(robotContext, Arm.EXTENSION_OUTTAKING_POSITION),
                             robotContext.zarm.new MoveVerticalMotorTask(robotContext, Zarm.MAX_POS),
                             robotContext.xarm.new MoveSlideMotor(robotContext),
-                            robotContext.claw1.new MoveWristTask(robotContext, Claw1.wristMaxPos)
+                            robotContext.claw.new MoveWristTask(robotContext, Claw.WRIST_UP_POSITION)
                     )
             );
         }

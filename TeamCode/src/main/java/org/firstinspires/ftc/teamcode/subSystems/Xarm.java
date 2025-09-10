@@ -10,8 +10,6 @@ public class Xarm {
     //init slideMotor
     private final Motor slideMotor;
 
-    private final PIDController slideMotorPID = new PIDController(0.01, 0, 0.005);
-
     //init max and min pos and power
     public static final double MAX_POS = 4.0;
     public static final double MIN_POS = 0.0;

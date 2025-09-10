@@ -8,8 +8,9 @@ import com.jumpypants.murphy.tasks.Task;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.MyRobot;
-import org.firstinspires.ftc.teamcode.subSystems.Arm;
+//import org.firstinspires.ftc.teamcode.subSystems.Arm;
 import org.firstinspires.ftc.teamcode.subSystems.Claw;
+import org.firstinspires.ftc.teamcode.subSystems.Zarm;
 
 public class OuttakingState implements State {
     private final MyRobot robotContext;
@@ -23,8 +24,8 @@ public class OuttakingState implements State {
                 robotContext.claw.new MoveClawTask(robotContext, Claw.CLAW_OPEN_POSITION),
                 new ParallelTask(robotContext, false,
                         robotContext.claw.new MoveWristTask(robotContext, Claw.WRIST_UP_POSITION),
-                        robotContext.arm.new MoveExtensionTask(robotContext, Arm.EXTENSION_INTAKING_POSITION),
-                        robotContext.arm.new MoveShoulderTask(robotContext, Arm.SHOULDER_INTAKING_POSITION)
+                        robotContext.xarm.new MoveSlideMotor(robotContext),
+                        robotContext.zarm.new MoveVerticalMotorTask(robotContext, Zarm.MAX_POS)
                 )
         );
     }
@@ -35,7 +36,7 @@ public class OuttakingState implements State {
         Gamepad gamepad1 = robotContext.gamepad1;
         robotContext.drive.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-        robotContext.arm.calculatePID();
+//        robotContext.arm.calculatePID();
 
         // Run the main task until finished, then transition to IntakingState
         if (mainTask.step()) {
