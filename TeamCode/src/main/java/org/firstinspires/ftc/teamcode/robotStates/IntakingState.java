@@ -8,8 +8,10 @@ import com.jumpypants.murphy.tasks.Task;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.MyRobot;
-import org.firstinspires.ftc.teamcode.subSystems.Arm;
-import org.firstinspires.ftc.teamcode.subSystems.Claw;
+//import org.firstinspires.ftc.teamcode.subSystems.Arm;
+import org.firstinspires.ftc.teamcode.subSystems.Xarm;
+import org.firstinspires.ftc.teamcode.subSystems.Zarm;
+import org.firstinspires.ftc.teamcode.subSystems.Claw1;
 
 public class IntakingState implements State {
     private final MyRobot robotContext;
@@ -30,7 +32,7 @@ public class IntakingState implements State {
         Gamepad gamepad1 = robotContext.gamepad1;
         robotContext.drive.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-        robotContext.arm.calculatePID();
+//        robotContext.arm.calculatePID();
 
         // Run the main task until finished, then transition to OuttakingState
         if (mainTask.step()) {
@@ -48,7 +50,7 @@ public class IntakingState implements State {
     private static class GrabTask extends ParallelTask {
         public GrabTask(MyRobot robotContext) {
             super(robotContext, true,
-                    robotContext.claw.new ManualWristTask(robotContext),
+//                    robotContext.claw1.new ManualWristTask(robotContext),
                     new WaitForTransferInputTask(robotContext)
             );
         }
@@ -71,11 +73,12 @@ public class IntakingState implements State {
     private static class TransferTask extends SequentialTask {
         public TransferTask(MyRobot robotContext) {
             super(robotContext,
-                    robotContext.claw.new MoveClawTask(robotContext, Claw.CLAW_CLOSED_POSITION),
+                    robotContext.claw1.new MoveClawTask(robotContext, Claw1.clawClosedPos),
                     new ParallelTask(robotContext, false,
-                            robotContext.arm.new MoveExtensionTask(robotContext, Arm.EXTENSION_OUTTAKING_POSITION),
-                            robotContext.arm.new MoveShoulderTask(robotContext, Arm.SHOULDER_OUTTAKING_POSITION),
-                            robotContext.claw.new MoveWristTask(robotContext, Claw.WRIST_UP_POSITION)
+//                            robotContext.arm.new MoveExtensionTask(robotContext, Arm.EXTENSION_OUTTAKING_POSITION),
+                            robotContext.zarm.new MoveVerticalMotorTask(robotContext, Zarm.MAX_POS),
+                            robotContext.xarm.new MoveSlideMotor(robotContext),
+                            robotContext.claw1.new MoveWristTask(robotContext, Claw1.wristMaxPos)
                     )
             );
         }

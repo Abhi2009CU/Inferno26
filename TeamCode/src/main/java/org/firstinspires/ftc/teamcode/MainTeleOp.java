@@ -52,7 +52,8 @@ public class MainTeleOp extends OpMode {
                         hardwareMap.get(Motor.class, "frontRight"),
                         hardwareMap.get(Motor.class, "backRight")
                 ),
-                new org.firstinspires.ftc.teamcode.subSystems.Arm(hardwareMap),
+                new org.firstinspires.ftc.teamcode.subSystems.Xarm(hardwareMap),
+                new org.firstinspires.ftc.teamcode.subSystems.Zarm(hardwareMap),
                 new org.firstinspires.ftc.teamcode.subSystems.Claw(hardwareMap)
         );
 

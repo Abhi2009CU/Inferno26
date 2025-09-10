@@ -6,6 +6,8 @@ import com.jumpypants.murphy.RobotContext;
 import com.jumpypants.murphy.tasks.Task;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.MyRobot;
+
 public class Arm {
     private final Motor EXTENSION_MOTOR;
     private final Motor SHOULDER_MOTOR;
