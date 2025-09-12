@@ -31,6 +31,7 @@ public class Zarm {
     }
     public class MoveVerticalMotorTask extends Task {
         private final double targetPosition;
+
         public MoveVerticalMotorTask(RobotContext robotContext, double targetPosition) {
             super(robotContext);
             this.targetPosition = targetPosition;
