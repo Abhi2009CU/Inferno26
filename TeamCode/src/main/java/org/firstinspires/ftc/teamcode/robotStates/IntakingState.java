@@ -26,13 +26,10 @@ public class IntakingState implements State {
 
     @Override
     public State step() {
-        // Drive the drivebase with gamepad1
+
         Gamepad gamepad1 = robotContext.gamepad1;
         robotContext.drive.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-//        robotContext.arm.calculatePID();
-
-        // Run the main task until finished, then transition to OuttakingState
         if (mainTask.step()) {
             return this;
         }
@@ -71,11 +68,11 @@ public class IntakingState implements State {
     private static class TransferTask extends SequentialTask {
         public TransferTask(MyRobot robotContext) {
             super(robotContext,
-                    robotContext.claw.new MoveClawTask(robotContext, Claw.CLAW_CLOSED_POSITION),
+                    robotContext.claw.new MoveClawTask(robotContext, Claw.CLAW_CLOSED_POS),
                     new ParallelTask(robotContext, false,
                             robotContext.zarm.new MoveVerticalMotorTask(robotContext, Zarm.MAX_POS),
                             robotContext.xarm.new MoveSlideMotor(robotContext),
-                            robotContext.claw.new MoveWristTask(robotContext, Claw.WRIST_UP_POSITION)
+                            robotContext.claw.new MoveWristTask(robotContext, Claw.WRIST_OPEN_POS)
                     )
             );
         }

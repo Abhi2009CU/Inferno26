@@ -20,6 +20,9 @@ public class MyRobot extends RobotContext {
     public final Zarm zarm;
     public final Claw claw;
 
+    //not sure about the following
+    public Gamepad gamepad1, gamepad2;
+
     /**
      * Creates a new RobotContext with the specified telemetry and gamepad references.
      * All parameters are required and cannot be null.
@@ -35,6 +38,10 @@ public class MyRobot extends RobotContext {
         this.zarm = zarm;
         this.xarm = xarm;
         this.claw = claw;
+
+        //not sure about the following
+        this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
     }
 
 //    public static class EClaw {
