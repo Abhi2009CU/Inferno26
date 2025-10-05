@@ -47,9 +47,10 @@ public class Xarm {
         @Override
         protected boolean run(RobotContext robotContext) {
             double currPos = SLIDE_MOTOR.getCurrentPosition();
-            return Math.abs(MAX_POS - currPos) > 5;  // tolerance of 5 ticks
+            return Math.abs(MAX_POS - currPos) < 5;  // tolerance of 5 ticks
         }
     }
 
 }
+
 
