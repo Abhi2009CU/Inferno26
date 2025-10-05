@@ -40,7 +40,8 @@ public class Zarm {
 
         @Override
         protected boolean run(RobotContext robotContext) {
-            return Math.abs(SLIDE_MOTOR.getCurrentPosition() - TARGET_POSITION) > 5;
+            return Math.abs(SLIDE_MOTOR.getCurrentPosition() - TARGET_POSITION) < 5;
         }
     }
 }
+
